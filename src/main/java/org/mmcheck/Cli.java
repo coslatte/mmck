@@ -10,9 +10,14 @@ import static org.mmcheck.Utils.getAppParentDir;
 import static org.mmcheck.Utils.userConsoleIn;
 
 public class Cli {
+    public Cli() {
+        this.folderPath = Path.of("");
+    }
+
     public boolean init() {
         boolean jsonExists = Utils.checkFileInDir();
 
+        // JSON File management
         if (jsonExists) {
             System.out.printf("OK > modlist file in directory (%s)%n.", DEFAULT_LIST_FILENAME);
         } else {
@@ -22,6 +27,7 @@ public class Cli {
 
             boolean defaultPath = false;
 
+            // Handle new directoy
             while (true) {
                 String userInput = userConsoleIn("");
 
@@ -55,9 +61,7 @@ public class Cli {
 
             if (defaultPath) folderPath = Path.of(getAppParentDir(), DEFAULT_LIST_FILENAME); // In case it's default...
 
-            //
             // CREATING THE FILE
-            //
             Path parentDir = folderPath.getParent();
 
             try {
@@ -66,6 +70,8 @@ public class Cli {
                 if (Files.notExists(folderPath)) {
                     Files.createFile(folderPath);
                     System.out.println("/// File created successfully: " + Path.of(String.valueOf(folderPath), DEFAULT_LIST_FILENAME));
+
+                    this.folderPath = folderPath;
                 } else {
                     System.out.println("/// File already exists: " + folderPath);
                 }
