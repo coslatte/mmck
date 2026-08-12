@@ -95,23 +95,24 @@ public class FileManager implements FileService {
             this.createFile(outputFilename, directory, fileListContent);
 
         } catch (IOException e) {
-            throw new RuntimeException(">>>>> " + e);
+            throw new RuntimeException("""
+                    Failed to export list of files over directory: %s
+                    StackTrace: %s
+                    """.formatted(directory, Arrays.toString(e.getStackTrace()))
+            );
         }
     }
 
     @Override
-    public void compareModFiles(@NotNull Path baseFilePath, @NotNull Path targetFilePath) {
+    public Set<String> compareModFiles(@NotNull Path baseFilePath, @NotNull Path targetFilePath) {
         try {
-            Set<String> missingModsInTarget= new HashSet<>(Files.readAllLines(baseFilePath));
+            Set<String> missingModsInTarget = new HashSet<>(Files.readAllLines(baseFilePath));
             Files.readAllLines(targetFilePath).forEach(missingModsInTarget::remove);
 
-            if (missingModsInTarget.isEmpty())
-                System.out.println("No missing mods");
-            else
-                System.out.println("Found missing mods: " + missingModsInTarget);
+            return missingModsInTarget;
 
         } catch (IOException e) {
-            throw new RuntimeException(">>>>> " + e);
+            throw new RuntimeException("Failed while comparing mod files: " + e);
         }
     }
 }
