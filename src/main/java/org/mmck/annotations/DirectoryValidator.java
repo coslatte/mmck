@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DirectoryValidator {
-    public static Path validateAndResolve(String path, ValidDirectory annotation) {
+    public static void validateAndResolve(String path, ValidDirectory annotation) {
         Path targetPath = (path == null || path.isBlank())
                 ? Path.of(System.getProperty("user.dir"))
                 : Paths.get(path);
@@ -15,6 +15,5 @@ public class DirectoryValidator {
             throw new IllegalArgumentException(message + " -> " + targetPath);
         }
 
-        return targetPath;
     }
 }

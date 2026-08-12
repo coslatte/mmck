@@ -6,12 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.mmck.services.FileService;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 @RequiredArgsConstructor
 public class ValidationProxy implements InvocationHandler {
-    // this invocation-handler stuff pattern I found on internet
+    // add this invocation-handler stuff pattern I asked Gemini so the proxy works setting a target object
     private final Object target;
 
     @Override
@@ -23,6 +24,11 @@ public class ValidationProxy implements InvocationHandler {
                 DirectoryValidator.validateAndResolve((String) args[i], annotation);
             }
         }
-        return method.invoke(target, args);
+        try {
+            Method targetMethod = target.getClass().getMethod(method.getName(), method.getParameterTypes());
+            return targetMethod.invoke(target, args);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
     }
 }

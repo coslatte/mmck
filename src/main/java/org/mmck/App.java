@@ -7,7 +7,6 @@ import java.lang.reflect.Proxy;
 
 public class App {
     public static void main(String[] args) {
-//        FileManager.createFile("", "new_file", FileManager.generateHashCode());
         FileService fileService = (FileService) Proxy.newProxyInstance(
                 FileManager.class.getClassLoader(),
                 new Class<?>[]{FileService.class},
