@@ -23,9 +23,15 @@ if exist target\dist rmdir /s /q target\dist
 "%JPACKAGE%" --type app-image --name mmck --app-version 1.0.0 --input staging --main-jar mmck.jar --main-class org.mmck.fxui.Launcher --vendor mmck --dest target\dist
 if errorlevel 1 (echo ERROR en jpackage & exit /b 1)
 
+echo [4/4] Creando zip portable...
+if exist "target\dist\mmck-1.0.0-win64.zip" del /q "target\dist\mmck-1.0.0-win64.zip"
+tar -a -cf "target\dist\mmck-1.0.0-win64.zip" -C "target\dist" mmck
+if errorlevel 1 (echo ERROR creando el zip & exit /b 1)
+
 echo.
 echo Listo:
 echo   Jar : target\mmck.jar
 echo   Exe : target\dist\mmck\mmck.exe
+echo   Zip : target\dist\mmck-1.0.0-win64.zip
 echo.
 endlocal
