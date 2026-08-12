@@ -12,7 +12,10 @@ import java.lang.reflect.Parameter;
 
 @RequiredArgsConstructor
 public class ValidationProxy implements InvocationHandler {
-    // add this invocation-handler stuff pattern I asked Gemini so the proxy works setting a target object
+
+    // add this invocation-handler-proxy stuff pattern I asked Gemini so the proxy works setting a target object
+    // then we get the methods that have this validation annotation and use the validateAndResolve method
+
     private final Object target;
 
     @Override

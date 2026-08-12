@@ -12,5 +12,7 @@ public class App {
                 new Class<?>[]{FileService.class},
                 new ValidationProxy(new FileManager())
         );
+
+        fileService.exportDirectoryListing("cosa", "");
     }
 }

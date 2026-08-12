@@ -12,26 +12,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @NoArgsConstructor
 public class FileManager {
     static String FILE_EXTENSION = ".txt";
-
-    public static void writeContentFile(
-            @NotNull Path path,
-            @NotNull String content
-    ) {
-        try {
-            Files.writeString(path, content, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-        } catch (IOException e) {
-            throw new RuntimeException("""
-                            Error while writing content on file: %s
-                            StackTrace: %s
-                            """.formatted(path.getFileName() + FILE_EXTENSION, e.getMessage()));
-        }
-    }
 
     public static String generateHashCode() {
         String hash = Integer.toHexString(RandomGenerator.getDefault().nextInt());
@@ -39,10 +28,27 @@ public class FileManager {
         return String.join("-", date, hash);
     }
 
+    public void writeContent(@NotNull Path filePath, @NotNull String fileContent) {
+        try {
+            Files.writeString(
+                    filePath,
+                    fileContent,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING
+            );
+        } catch (IOException e) {
+            throw new RuntimeException("""
+                    Error while writing content on file: %s
+                    StackTrace: %s
+                    """.formatted(filePath.getFileName() + FILE_EXTENSION, Arrays.toString(e.getStackTrace())));
+        }
+    }
+
     public void createFile(
             @Nullable String filename,
-            @NotNull("path is null") @ValidDirectory String path,
-            @Nullable String content
+            @NotNull("Must specify a path. It's null.") @ValidDirectory String path,
+            @Nullable String fileContent
     ) {
         // filename
         String finalFilename = Optional.ofNullable(filename)
@@ -50,28 +56,44 @@ public class FileManager {
                 .orElseGet(() -> "file-" + generateHashCode());
 
         // path
-        Path targetBasePath = (path.isBlank()) ? Path.of(System.getProperty("user.dir")) : Paths.get(path);
-        Path fullFilePath = targetBasePath.resolve(finalFilename + FILE_EXTENSION);
+        Path filePath = Paths.get(path).resolve(finalFilename + FILE_EXTENSION);
 
-        // building
+        // building and writing
         try {
-            Files.createFile(fullFilePath);
+            Files.createFile(filePath);
+
+            if (fileContent != null)
+                writeContent(filePath, fileContent);
+
         } catch (IOException e) {
             String errorType = e.getClass().getSimpleName();
-            String reason = (e.getMessage() != null && !e.getMessage().equals(fullFilePath.toString()))
+            String reason = (e.getMessage() != null && !e.getMessage().equals(filePath.toString()))
                     ? e.getMessage()
                     : "File already exists or path have an invalid format. (" + errorType + ")";
-
             throw new RuntimeException("""
-                            Error creating file: %s
-                            Reason: %s
-                            """.formatted(fullFilePath.getFileName(), reason)
+                    Error creating file: %s
+                    Reason: %s
+                    """.formatted(filePath.getFileName(), reason)
             );
         }
+    }
 
-        // content
-        if (content != null) {
-            writeContentFile(fullFilePath, content);
+    public void exportDirectoryListing(@NotNull String outputFilename, @NotNull String directory) {
+        Path targetDirectory = (directory.isBlank())
+                // so this is for Minecraft purposes...
+                ? Paths.get(System.getenv("APPDATA"), ".minecraft", "mods")
+                : Paths.get(directory);
+
+        try (Stream<Path> stream = Files.list(targetDirectory)) {
+            String fileListContent = stream
+                    .filter(Files::isRegularFile)
+                    .map(path -> path.getFileName().toString())
+                    .collect(Collectors.joining(System.lineSeparator()));
+
+            this.createFile(outputFilename, directory, fileListContent);
+
+        } catch (IOException e) {
+            throw new RuntimeException(">>>>> " + e);
         }
     }
 }
