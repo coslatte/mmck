@@ -4,6 +4,10 @@ This is a tool I made for myself to check mods while I'm installing them manuall
 
 Stuff made without AI slop.
 
+## screenshot
+
+![mmck](assets/screenshot-2026-08-12-181358.jpg)
+
 ## install
 
 run it: grab the jar from github releases (`java -jar mmck.jar`) or build with `mvn package`. if no java, releases also has a windows exe. 
