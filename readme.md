@@ -4,6 +4,10 @@ This is a tool I made for myself to check mods while I'm installing them manuall
 
 Stuff made without AI slop.
 
+## install
+
+run it: grab the jar from github releases (`java -jar mmck.jar`) or build with `mvn package`. if no java, releases also has a windows exe. 
+
 ## updates
 
 ### 2026-8-11
