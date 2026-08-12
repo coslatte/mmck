@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.random.RandomGenerator;
 
@@ -20,18 +19,17 @@ import java.util.random.RandomGenerator;
 public class FileManager {
     static String FILE_EXTENSION = ".txt";
 
-    public static void writeFile(
+    public static void writeContentFile(
             @NotNull Path path,
             @NotNull String content
     ) {
         try {
             Files.writeString(path, content, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
         } catch (IOException e) {
-            throw new RuntimeException("Error while writing content on file: "
-                    + path.resolve(path.getFileName() + FILE_EXTENSION)
-                    + " >>> "
-                    + e.getMessage() + Arrays.toString(e.getStackTrace())
-            );
+            throw new RuntimeException("""
+                            Error while writing content on file: %s
+                            StackTrace: %s
+                            """.formatted(path.getFileName() + FILE_EXTENSION, e.getMessage()));
         }
     }
 
@@ -64,8 +62,7 @@ public class FileManager {
                     ? e.getMessage()
                     : "File already exists or path have an invalid format. (" + errorType + ")";
 
-            throw new RuntimeException(
-                    """
+            throw new RuntimeException("""
                             Error creating file: %s
                             Reason: %s
                             """.formatted(fullFilePath.getFileName(), reason)
@@ -74,7 +71,7 @@ public class FileManager {
 
         // content
         if (content != null) {
-            writeFile(fullFilePath, content);
+            writeContentFile(fullFilePath, content);
         }
     }
 }
