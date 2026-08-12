@@ -139,7 +139,7 @@ public class MainViewController {
             summaryPill.getStyleClass().removeAll("pill-blue", "pill-red", "pill-green");
             summaryPill.getStyleClass().add("pill-green");
             summaryPill.setText("Sin mods faltantes");
-            diffList.getChildren().add(okItem("No hay diferencias: todos los mods del archivo base existen en el destino."));
+            diffList.getChildren().add(okItem());
             setStatus("Comparación completada: sin diferencias", Status.OK);
             return;
         }
@@ -174,10 +174,10 @@ public class MainViewController {
         return row;
     }
 
-    private HBox okItem(String message) {
+    private HBox okItem() {
         Label ok = new Label("OK");
         ok.getStyleClass().add("pill-green");
-        Label text = new Label(message);
+        Label text = new Label("No hay diferencias: todos los mods del archivo base existen en el destino.");
         text.getStyleClass().add("mod-name");
         HBox row = new HBox(10, ok, text);
         row.getStyleClass().add("ok-item");
