@@ -34,6 +34,17 @@
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -50,6 +61,14 @@
                             <version>1.18.36</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>org.mmck.fxui.MainApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>

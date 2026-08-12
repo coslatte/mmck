@@ -1,0 +1,284 @@
+.root {
+    -fx-base: #111827;
+    -fx-background: #0f172a;
+    -fx-background-color: -fx-background;
+    -fx-accent: #3b82f6;
+    -fx-focus-color: rgba(59, 130, 246, 0.55);
+    -fx-faint-focus-color: rgba(59, 130, 246, 0.12);
+
+    -mmck-bg: #0f172a;
+    -mmck-bg-elevated: #172033;
+    -mmck-card: #1e293b;
+    -mmck-card-hover: #243349;
+    -mmck-border: #334155;
+    -mmck-text: #e2e8f0;
+    -mmck-text-muted: #94a3b8;
+    -mmck-blue: #3b82f6;
+    -mmck-blue-hover: #2563eb;
+    -mmck-blue-light: #60a5fa;
+    -mmck-blue-deep: #1d4ed8;
+    -mmck-green: #22c55e;
+    -mmck-red: #ef4444;
+    -mmck-amber: #f59e0b;
+
+    -fx-font-family: "Segoe UI", "Inter", "Roboto", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: -mmck-text;
+}
+
+.text {
+    -fx-text-fill: -mmck-text;
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -mmck-text;
+}
+
+.brand-badge {
+    -fx-text-fill: -mmck-blue-light;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+}
+
+.card-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -mmck-text;
+}
+
+.section-icon {
+    -fx-font-size: 16px;
+}
+
+.field-label {
+    -fx-text-fill: -mmck-text-muted;
+    -fx-font-size: 12px;
+}
+
+.field-name {
+    -fx-min-width: 118px;
+    -fx-text-fill: -mmck-text;
+    -fx-font-size: 13px;
+}
+
+.card {
+    -fx-background-color: -mmck-card;
+    -fx-background-radius: 12px;
+    -fx-border-color: -mmck-border;
+    -fx-border-radius: 12px;
+    -fx-padding: 18px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 14, 0, 0, 4);
+}
+
+.app-header {
+    -fx-background-color: #0b1222;
+    -fx-border-color: transparent transparent -mmck-border transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 12px 20px;
+}
+
+.button {
+    -fx-background-color: -mmck-blue;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.25), 8, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: -mmck-blue-hover;
+}
+
+.button:pressed {
+    -fx-background-color: -mmck-blue-deep;
+    -fx-translate-y: 1;
+}
+
+.button:disabled {
+    -fx-background-color: #334155;
+    -fx-text-fill: #64748b;
+    -fx-effect: none;
+}
+
+.button.secondary {
+    -fx-background-color: #334155;
+    -fx-effect: none;
+}
+
+.button.secondary:hover {
+    -fx-background-color: #3e4c63;
+}
+
+.button.green {
+    -fx-background-color: -mmck-green;
+    -fx-effect: dropshadow(gaussian, rgba(34,197,94,0.25), 8, 0, 0, 2);
+}
+
+.button.green:hover {
+    -fx-background-color: #16a34a;
+}
+
+.button.ghost {
+    -fx-background-color: transparent;
+    -fx-effect: none;
+    -fx-text-fill: -mmck-text-muted;
+    -fx-border-color: transparent;
+}
+
+.button.ghost:hover {
+    -fx-background-color: rgba(148,163,184,0.12);
+    -fx-text-fill: -mmck-text;
+}
+
+.button.copy {
+    -fx-font-size: 11px;
+    -fx-padding: 3px 10px;
+    -fx-background-radius: 6px;
+    -fx-effect: none;
+}
+
+.text-field, .text-area {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 8px;
+    -fx-border-color: -mmck-border;
+    -fx-border-radius: 8px;
+    -fx-text-fill: -mmck-text;
+    -fx-prompt-text-fill: #64748b;
+    -fx-padding: 8px 12px;
+    -fx-highlight-fill: -mmck-blue;
+    -fx-highlight-text-fill: white;
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: -mmck-blue;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.25), 6, 0, 0, 0);
+}
+
+.text-area {
+    -fx-background-color: #0f172a;
+    -fx-control-inner-background: #0f172a;
+}
+
+.path-pill {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 8px;
+    -fx-border-color: -mmck-border;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: -mmck-text-muted;
+}
+
+.pill-green {
+    -fx-background-color: rgba(34,197,94,0.12);
+    -fx-border-color: rgba(34,197,94,0.4);
+    -fx-text-fill: -mmck-green;
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+    -fx-padding: 4px 12px;
+    -fx-font-weight: 600;
+}
+
+.pill-red {
+    -fx-background-color: rgba(239,68,68,0.12);
+    -fx-border-color: rgba(239,68,68,0.4);
+    -fx-text-fill: -mmck-red;
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+    -fx-padding: 4px 12px;
+    -fx-font-weight: 600;
+}
+
+.pill-blue {
+    -fx-background-color: rgba(59,130,246,0.12);
+    -fx-border-color: rgba(59,130,246,0.4);
+    -fx-text-fill: -mmck-blue-light;
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+    -fx-padding: 4px 12px;
+    -fx-font-weight: 600;
+}
+
+.separator .line {
+    -fx-border-color: -mmck-border;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #475569;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #64748b;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.diff-item {
+    -fx-background-color: rgba(239,68,68,0.08);
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(239,68,68,0.25);
+    -fx-border-radius: 8px;
+    -fx-padding: 6px 12px;
+}
+
+.diff-item .index {
+    -fx-text-fill: -mmck-red;
+    -fx-font-weight: bold;
+}
+
+.diff-item .mod-name {
+    -fx-text-fill: -mmck-text;
+    -fx-font-family: "Consolas", "Cascadia Mono", monospace;
+}
+
+.ok-item {
+    -fx-background-color: rgba(34,197,94,0.08);
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(34,197,94,0.25);
+    -fx-border-radius: 8px;
+    -fx-padding: 6px 12px;
+}
+
+.status-bar {
+    -fx-background-color: #0b1222;
+    -fx-border-color: -mmck-border transparent transparent transparent;
+    -fx-padding: 8px 20px;
+}
+
+.status-text {
+    -fx-text-fill: -mmck-text-muted;
+    -fx-font-size: 12px;
+}

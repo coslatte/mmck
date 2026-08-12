@@ -8,7 +8,7 @@ import java.lang.reflect.Proxy;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class App {
+public class TestApp {
     public static void main(String[] args) {
         FileService fileService = (FileService) Proxy.newProxyInstance(
                 FileManager.class.getClassLoader(),

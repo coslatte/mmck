@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.mmck.fxui.MainViewController">
+
+    <top>
+        <HBox styleClass="app-header" alignment="CENTER_LEFT" spacing="12">
+            <Label styleClass="brand-badge" text="mmck"/>
+            <VBox spacing="2">
+                <Label styleClass="app-title" text="Gestor de mods"/>
+                <Label styleClass="field-label" text="Exporta, compara y detecta mods faltantes"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="themeToggleButton" styleClass="ghost" text="Tema: oscuro" onAction="#onToggleTheme"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="root">
+            <VBox spacing="16" styleClass="root"
+                  style="-fx-padding: 28 28 28 28;">
+
+                <VBox styleClass="card" spacing="12">
+                    <Label styleClass="card-title" text="Exportar lista de mods"/>
+                    <Label styleClass="field-label" wrapText="true"
+                           text="Genera un archivo .txt con los nombres de los mods del directorio. Si no eliges uno, usa %APPDATA%\.minecraft\mods"/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label styleClass="field-label field-name" text="Directorio:"/>
+                        <TextField fx:id="directoryField" HBox.hgrow="ALWAYS"
+                                   promptText="Carpeta con los mods..."/>
+                        <Button fx:id="browseDirButton" styleClass="secondary" text="Buscar"
+                                onAction="#onBrowseDirectory"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label styleClass="field-label field-name" text="Nombre del archivo:"/>
+                        <TextField fx:id="filenameField" HBox.hgrow="ALWAYS"
+                                   promptText="mods-list (opcional)"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_RIGHT">
+                        <Button fx:id="exportButton" text="Exportar" onAction="#onExport" prefWidth="120"/>
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="card" spacing="12">
+                    <Label styleClass="card-title" text="Comparar mods"/>
+                    <Label styleClass="field-label" wrapText="true"
+                           text="Elige el archivo base (el que exportaste) y el de destino. Se listan los mods que faltan en el destino."/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label styleClass="field-label field-name" text="Archivo base:"/>
+                        <TextField fx:id="baseFileField" HBox.hgrow="ALWAYS"
+                                   promptText="Lista base (.txt)..."/>
+                        <Button fx:id="browseBaseButton" styleClass="secondary" text="Buscar"
+                                onAction="#onBrowseBase"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label styleClass="field-label field-name" text="Archivo destino:"/>
+                        <TextField fx:id="targetFileField" HBox.hgrow="ALWAYS"
+                                   promptText="Lista destino (.txt)..."/>
+                        <Button fx:id="browseTargetButton" styleClass="secondary" text="Buscar"
+                                onAction="#onBrowseTarget"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_RIGHT">
+                        <Button fx:id="compareButton" text="Comparar" onAction="#onCompare" prefWidth="120"/>
+                    </HBox>
+                </VBox>
+
+                <VBox fx:id="resultsCard" styleClass="card" spacing="12" visible="false" managed="false">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label styleClass="card-title" text="Diferencias"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="summaryPill" styleClass="pill-blue" text="0 mods"/>
+                    </HBox>
+
+                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefViewportHeight="220">
+                        <VBox fx:id="diffList" spacing="6"/>
+                    </ScrollPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+            <Label fx:id="statusLabel" styleClass="status-text" text="Listo"/>
+        </HBox>
+    </bottom>
+</BorderPane>
