@@ -1,4 +1,4 @@
-package org.mmck;
+package org.mmck.service;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -13,13 +13,15 @@ import java.nio.file.StandardOpenOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @NoArgsConstructor
-public class FileManager {
+public class FileManager implements FileService {
     static String FILE_EXTENSION = ".txt";
 
     public static String generateHashCode() {
@@ -78,7 +80,7 @@ public class FileManager {
         }
     }
 
-    public void exportDirectoryListing(@NotNull String outputFilename, @NotNull String directory) {
+    public void exportDirectoryListing(@Nullable String outputFilename, @NotNull String directory) {
         Path targetDirectory = (directory.isBlank())
                 // so this is for Minecraft purposes...
                 ? Paths.get(System.getenv("APPDATA"), ".minecraft", "mods")
@@ -91,6 +93,22 @@ public class FileManager {
                     .collect(Collectors.joining(System.lineSeparator()));
 
             this.createFile(outputFilename, directory, fileListContent);
+
+        } catch (IOException e) {
+            throw new RuntimeException(">>>>> " + e);
+        }
+    }
+
+    @Override
+    public void compareModFiles(@NotNull Path baseFilePath, @NotNull Path targetFilePath) {
+        try {
+            Set<String> missingModsInTarget= new HashSet<>(Files.readAllLines(baseFilePath));
+            Files.readAllLines(targetFilePath).forEach(missingModsInTarget::remove);
+
+            if (missingModsInTarget.isEmpty())
+                System.out.println("No missing mods");
+            else
+                System.out.println("Found missing mods: " + missingModsInTarget);
 
         } catch (IOException e) {
             throw new RuntimeException(">>>>> " + e);

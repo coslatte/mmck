@@ -14,4 +14,7 @@ it's a little bit overkill for just checking a valid present dir, but... sure
 ### 2026-8-12
 
 learned how to make better format for exceptions with java native exception classes, also string `formatted()` function is really cool for that
+
 now willing to iterate inside a dir every file to get the filenames and make a txt with those names, to contrast between mods installed and missing. this is a headache while manually installing mods or modpacks
+
+I added the option to compare between files generated with info from the mods, will add in some future some date or code idk inside the stuff to make it easy to follow
